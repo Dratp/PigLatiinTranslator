@@ -14,9 +14,15 @@ namespace PigLatin
             Console.WriteLine($"The first vowel is at position {firstvowel}");
             string almostPigLatin = MoveConsonants(input, firstvowel);
             Console.WriteLine($"The first step in converting a word to pid latin is: {almostPigLatin}");
-            //AddAy();
+            string pigLatin = AddAy(almostPigLatin);
+            Console.WriteLine($"The word in PigLatin is {pigLatin}");
 
+        }
 
+        static string AddAy(string word)
+        {
+            word = word + "ay";
+            return word;
         }
 
         static string MoveConsonants(string word, int vowelPosition)
