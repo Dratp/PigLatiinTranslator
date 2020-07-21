@@ -13,41 +13,67 @@ namespace PigLatin
             //input = input.ToLower();
             string pigLatin = "";
             int firstvowel = 0;
+            string exit;
 
-            Console.WriteLine("Welcome to the Pig Latin Translator!");
-            Console.Write("\nEnter a line to be translated: ");
-            input = Console.ReadLine().ToLower();
-            string[] words = input.Split();
-
-            for(int i = 0; i < words.Count(); i++)
+            
+            do
             {
-                string punctuation = CheckforPunctuation(words[i]); // Check for puncuation looks to see if there is puncuation and returns the puncuation if it exists else returns ""
-                if (punctuation.Length > 0) 
+                Console.WriteLine("Welcome to the Pig Latin Translator!");
+                Console.Write("\nEnter a line to be translated: ");
+                input = Console.ReadLine().ToLower();
+                string[] words = input.Split(" ");
+
+                for (int i = 0; i < words.Count(); i++)
                 {
-                    words[i] = RemoveEndChars(words[i], 1); // removing 1 char from the end of the word
+                    string punctuation = CheckforPunctuation(words[i]); // Check for puncuation looks to see if there is puncuation and returns the puncuation if it exists else returns ""
+                    if (punctuation.Length > 0)
+                    {
+                        words[i] = RemoveEndChars(words[i], 1); // removing 1 char from the end of the word
+                    }
+                    if (IsItAWord(words[i]))
+                    {
+                        firstvowel = CheckVowel(words[i]);
+                        //Console.WriteLine($"The first vowel is at position {firstvowel}"); // Debugging Code
+                        //string almostPigLatin = MoveConsonants(input, firstvowel); // Debugging Code
+                        //Console.WriteLine($"The first step in converting a word to pig latin is: {almostPigLatin}"); // Debugging Code
+                        if (firstvowel == 0) // Is there a vowel or is the firt letter a vowel if so first vowel will be 0
+                        {
+                            pigLatin = AddWay(words[i]);
+                        }
+                        else // If the word starts with a consonant firstvowel will not be 0
+                        {
+                            pigLatin = AddAy(MoveConsonants(words[i], firstvowel));
+                        }
+                        Console.Write($"{pigLatin + punctuation} ");
+                    }
+                    else
+                    {
+                        Console.Write($"{words[i]} ");
+                    }
                 }
-                if (IsItAWord(words[i]))
+                exit = GetYesOrNo("\nTranslate another line (y/n): ");
+                //Console.Write($"The word in PigLatin is {pigLatin}");
+            } while (exit != "N" && exit != "No");
+
+
+        }
+
+        static string GetYesOrNo(string question)
+        {
+            while (true)
+            {
+                Console.Write(question);
+                string answer = Console.ReadLine().ToUpper();
+                if (answer == "Y" || answer == "N" || answer == "YES" || answer == "NO")
                 {
-                    firstvowel = CheckVowel(words[i]);
-                    //Console.WriteLine($"The first vowel is at position {firstvowel}"); // Debugging Code
-                    //string almostPigLatin = MoveConsonants(input, firstvowel); // Debugging Code
-                    //Console.WriteLine($"The first step in converting a word to pig latin is: {almostPigLatin}"); // Debugging Code
-                    if (firstvowel == 0) // Is there a vowel or is the firt letter a vowel if so first vowel will be 0
-                    {
-                        pigLatin = AddWay(words[i]);
-                    }
-                    else // If the word starts with a consonant firstvowel will not be 0
-                    {
-                        pigLatin = AddAy(MoveConsonants(words[i], firstvowel));
-                    }
-                    Console.Write($"{pigLatin + punctuation} ");
+                    return answer;
                 }
                 else
                 {
-                    Console.Write($"{words[i]} ");
+                    Console.WriteLine("That was not a valid input");
                 }
             }
-            //Console.Write($"The word in PigLatin is {pigLatin}");
+            
         }
 
         static string RemoveEndChars(string word, int amount)
