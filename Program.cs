@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace PigLatin
 {
@@ -17,22 +18,27 @@ namespace PigLatin
             Console.WriteLine("\nEnter a line to be translated: ");
             input = Console.ReadLine().ToLower();
             string[] words = input.Split();
-            IsItAWord(words[0]);
 
-            firstvowel = CheckVowel(input);
-            //Console.WriteLine($"The first vowel is at position {firstvowel}");
-            //string almostPigLatin = MoveConsonants(input, firstvowel);
-            //Console.WriteLine($"The first step in converting a word to pig latin is: {almostPigLatin}");
-            if (firstvowel == 0) // Is there a vowel or is the firt letter a vowel if so first vowel will be 0
+            for(int i = 0; i < words.Count(); i++)
             {
-                pigLatin = AddWay(input);
+                if (IsItAWord(words[i]))
+                {
+                    firstvowel = CheckVowel(words[i]);
+                    //Console.WriteLine($"The first vowel is at position {firstvowel}"); // Debugging Code
+                    //string almostPigLatin = MoveConsonants(input, firstvowel); // Debugging Code
+                    //Console.WriteLine($"The first step in converting a word to pig latin is: {almostPigLatin}"); // Debugging Code
+                    if (firstvowel == 0) // Is there a vowel or is the firt letter a vowel if so first vowel will be 0 // Debugging Code
+                    {
+                        pigLatin = AddWay(words[i]);
+                    }
+                    else // If the word starts with a consonant firstvowel will not be 0
+                    {
+                        pigLatin = AddAy(MoveConsonants(words[i], firstvowel));
+                    }
+                    Console.Write($"{pigLatin} ");
+                }
             }
-            else // If the word starts with a consonant firstvowel will not be 0
-            {
-                pigLatin = AddAy(MoveConsonants(input, firstvowel));
-            }
-            Console.WriteLine($"The word in PigLatin is {pigLatin}");
-
+            //Console.Write($"The word in PigLatin is {pigLatin}");
         }
 
         static bool IsItAWord(string input)
@@ -41,11 +47,15 @@ namespace PigLatin
             for (int i=0; i<input.Length; i++)
             {
                 validWord = char.IsLetter(input[i]);
-                //Console.WriteLine($"{input[i]} is a letter {validWord}");
+                //Console.WriteLine($"{input[i]} is a letter {validWord}"); //Debugging Code
                 if (validWord == false)
                 {
                     break;
                 }
+            }
+            if (input.Length == 0)
+            {
+                validWord = false;
             }
             return validWord;
         }
