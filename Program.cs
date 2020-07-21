@@ -8,15 +8,31 @@ namespace PigLatin
     {
         static void Main(string[] args)
         {
-            string input = "Church";
+            string input = "Greetings";
             input = input.ToLower();
+            string pigLatin = "";
+
             int firstvowel = CheckVowel(input);
-            Console.WriteLine($"The first vowel is at position {firstvowel}");
-            string almostPigLatin = MoveConsonants(input, firstvowel);
-            Console.WriteLine($"The first step in converting a word to pid latin is: {almostPigLatin}");
-            string pigLatin = AddAy(almostPigLatin);
+            //Console.WriteLine($"The first vowel is at position {firstvowel}");
+            //string almostPigLatin = MoveConsonants(input, firstvowel);
+            //Console.WriteLine($"The first step in converting a word to pig latin is: {almostPigLatin}");
+
+            if (firstvowel == 0)
+            {
+                pigLatin = AddWay(input);
+            }
+            else
+            {
+                pigLatin = AddAy(MoveConsonants(input, firstvowel));
+            }
             Console.WriteLine($"The word in PigLatin is {pigLatin}");
 
+        }
+
+        static string AddWay(string word)
+        {
+            word = word + "way";
+            return word;
         }
 
         static string AddAy(string word)
