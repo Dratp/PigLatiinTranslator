@@ -7,6 +7,8 @@ namespace PigLatin
 {
     class Program
     {
+
+
         static void Main(string[] args)
         {
             string input = "sdgthn";
@@ -14,7 +16,6 @@ namespace PigLatin
             string pigLatin = "";
             int firstvowel = 0;
             string exit;
-
             
             do
             {
@@ -74,9 +75,9 @@ namespace PigLatin
                 }
             }
             
-        }
+        }    // Takes a question prints it out and returns only a "Y" or a "N" from the user
 
-        static string RemoveEndChars(string word, int amount)
+        static string RemoveEndChars(string word, int amount) // Remove a number of charaters (amount) from the end of the argument (word)
         {
             int lastIndex = word.Length;
             int insertionPoint = lastIndex - amount;
@@ -96,7 +97,7 @@ namespace PigLatin
                 punctuation = word[lastCharIndex].ToString();
             }
             return punctuation;
-        }
+        }  // Check for puncuation looks to see if there is puncuation and returns the puncuation if it exists else returns ""
 
         static bool IsItAWord(string input)
         {
@@ -115,19 +116,19 @@ namespace PigLatin
                 validWord = false;
             }
             return validWord;
-        }
+        }  // Checks to make sure every char in a String is a Letter and returns true or false
 
         static string AddWay(string word)
         {
             word = word + "way";
             return word;
-        }
+        }  // Adds way to the end of a string
 
         static string AddAy(string word)
         {
             word = word + "ay";
             return word;
-        }
+        } // Adds ay to the end of a string
 
         static string MoveConsonants(string word, int vowelPosition)
         {
@@ -152,7 +153,7 @@ namespace PigLatin
                 changedWord += letter;
             }
             return changedWord;
-        }
+        }  // Cut the word in half and put the begining at the end
 
         static int CheckVowel(string word)
         {
@@ -193,7 +194,7 @@ namespace PigLatin
                 return vowelPosition;
             }
 
-        }
+        }  // Returns the position of the first vowel in a sentence or 0 if none
 
     }
 }
