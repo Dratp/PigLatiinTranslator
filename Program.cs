@@ -10,7 +10,7 @@ namespace PigLatin
         static void Main(string[] args)
         {
             string input = "sdgthn";
-            input = input.ToLower();
+            //input = input.ToLower();
             string pigLatin = "";
             int firstvowel = 0;
 
@@ -36,6 +36,10 @@ namespace PigLatin
                         pigLatin = AddAy(MoveConsonants(words[i], firstvowel));
                     }
                     Console.Write($"{pigLatin} ");
+                }
+                else
+                {
+                    Console.Write($"{words[i]} ");
                 }
             }
             //Console.Write($"The word in PigLatin is {pigLatin}");
