@@ -12,11 +12,17 @@ namespace PigLatin
             input = input.ToLower();
             string pigLatin = "";
             int firstvowel = 0;
+
+            Console.WriteLine("Welcome to the Pig Latin Translator!");
+            Console.WriteLine("\nEnter a line to be translated: ");
+            input = Console.ReadLine().ToLower();
+            string[] words = input.Split();
+            IsItAWord(words[0]);
+
+            firstvowel = CheckVowel(input);
             //Console.WriteLine($"The first vowel is at position {firstvowel}");
             //string almostPigLatin = MoveConsonants(input, firstvowel);
             //Console.WriteLine($"The first step in converting a word to pig latin is: {almostPigLatin}");
-
-            firstvowel = CheckVowel(input);
             if (firstvowel == 0) // Is there a vowel or is the firt letter a vowel if so first vowel will be 0
             {
                 pigLatin = AddWay(input);
@@ -27,6 +33,21 @@ namespace PigLatin
             }
             Console.WriteLine($"The word in PigLatin is {pigLatin}");
 
+        }
+
+        static bool IsItAWord(string input)
+        {
+            bool validWord = false;
+            for (int i=0; i<input.Length; i++)
+            {
+                validWord = char.IsLetter(input[i]);
+                //Console.WriteLine($"{input[i]} is a letter {validWord}");
+                if (validWord == false)
+                {
+                    break;
+                }
+            }
+            return validWord;
         }
 
         static string AddWay(string word)
