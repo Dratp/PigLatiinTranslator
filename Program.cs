@@ -22,11 +22,13 @@ namespace PigLatin
                 Console.WriteLine("Welcome to the Pig Latin Translator!");
                 Console.Write("\nEnter a line to be translated: ");
                 input = Console.ReadLine().ToLower();
+                //input = input.Trim();
                 string[] words = input.Split(" ");
+                string punctuation = "";
 
                 for (int i = 0; i < words.Count(); i++)
                 {
-                    string punctuation = CheckforPunctuation(words[i]); // Check for puncuation looks to see if there is puncuation and returns the puncuation if it exists else returns ""
+                    punctuation = CheckforPunctuation(words[i]); // Check for puncuation looks to see if there is puncuation and returns the puncuation if it exists else returns ""
                     if (punctuation.Length > 0)
                     {
                         words[i] = RemoveEndChars(words[i], 1); // removing 1 char from the end of the word
@@ -92,6 +94,12 @@ namespace PigLatin
         {
             string punctuation = "";
             int lastCharIndex = word.Length -1;
+
+            if (word == "")
+            {
+                return "";
+            }
+
             if (char.IsPunctuation(word[lastCharIndex]))
             {
                 punctuation = word[lastCharIndex].ToString();
